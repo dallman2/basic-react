@@ -7,14 +7,13 @@ type EmployeeType = {
   directReports: EmployeeType[];
 };
 
-function App() {
-  const [data, setData] = useState<EmployeeType[]>([]);
+/**
+ * the `/api` endpoint returns a JSON list of employees in a hierarchical structure under the `EMPLOYEES` key,
+ * specifically, a list of `EmployeeType` objects, where each employee has an `id`, `name`, and a list of `directReports`.
+ */
 
-  useEffect(() => {
-    fetch("/api")
-      .then((res) => res.json())
-      .then((data) => setData(data.EMPLOYEES));
-  }, []);
+const App = () => {
+  const [data, setData] = useState<EmployeeType[]>([]);
 
   useEffect(() => {
     console.log("Employee Data:", data);
