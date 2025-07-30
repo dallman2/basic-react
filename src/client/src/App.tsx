@@ -1,38 +1,31 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+
+type EmployeeType = {
+  id: number;
+  name: string;
+  directReports: EmployeeType[];
+};
 
 function App() {
-  const [message, setMessage] = useState('');
+  const [data, setData] = useState<EmployeeType[]>([]);
 
   useEffect(() => {
-    // Fetch from the relative path, Vite will proxy it
     fetch("/api")
       .then((res) => res.json())
-      .then((data) => setMessage(data.message));
+      .then((data) => setData(data.EMPLOYEES));
   }, []);
+
+  useEffect(() => {
+    console.log("Employee Data:", data);
+  }, [data]);
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
       <h1>Vite + React</h1>
       <div className="card">
-        {message}
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+        <h2>Employee Hierarchy</h2>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   );
 }
